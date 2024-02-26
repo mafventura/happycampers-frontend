@@ -36,11 +36,6 @@ export default function NavBar() {
         });
     };
 
-    useEffect(() => {
-        console.log(isStaff)
-    }, []);
-    
-
     return (
         <Navbar expand="lg" className="text-white">
             
