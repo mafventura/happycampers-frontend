@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Card, Container, Form, InputGroup, Button } from "react-bootstrap";
 
-export default function Signup() {
+export default function AddStaff() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
@@ -14,11 +14,11 @@ export default function Signup() {
             username: username,
             password: password,
             email: email,
-            staff: false
+            staff: true
         }
         try {
             await axios.post(
-                `${process.env.REACT_APP_BACKEND_URL}/signup/`,
+                `${process.env.REACT_APP_BACKEND_URL}/staff/add`,
                 user,
                 { headers: { 'Content-Type': 'application/json' }, withCredentials: true }
             )
@@ -31,7 +31,6 @@ export default function Signup() {
 
     return (
         <Container className="d-flex flex-column align-items-center mt-5">
-            <Button className="btn btn-primary text-white" ><Link to="/login" className='link'>Log In</Link></Button>
             <Card className='mt-5 d-flex flex-column align-items-center bg-secondary' style={{ width: '25rem'}}>
                 <Form onSubmit={handleSubmit} className="p-4">
                     <div>

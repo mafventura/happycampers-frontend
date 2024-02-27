@@ -9,6 +9,8 @@ import Logout from "./components/Auth/Logout";
 import Kids from "./components/Kids/Kids";
 import Camps from "./components/Camps/Camps";
 import AddKid from './components/Kids/AddKid';
+import EditKid from './components/Kids/EditKid';
+import AddStaff from './components/Staff/AddStaff';
 
 
 function App() {
@@ -23,7 +25,9 @@ function App() {
           <Route path="/logout" element={<Logout/>}/>
           <Route path="/kids" element={<Kids/>}/>
           <Route path="/kids/add" element={<AddKid/>}/>
+          <Route path="/kids/:id/edit" element={<EditKid/>}/>
           <Route path="/camps" element={<Camps/>}/>
+          <Route path="/staff/add" element={<AddStaff/>}/>
         </Routes>
     </div>
   );

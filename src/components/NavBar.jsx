@@ -4,8 +4,11 @@ import axios from 'axios';
 import './NavBar.css'
 import React, { useState, useEffect} from 'react';
 import { jwtDecode } from "jwt-decode";
+import { useUser } from "../context/UserContext";
 
 export default function NavBar() {
+    
+    const { setUserId } = useUser();
 
     const [isAuth, setIsAuth] = useState(false);
     const [isStaff, setIsStaff] = useState(false);
@@ -15,6 +18,7 @@ export default function NavBar() {
             setIsAuth(true);
             fetchUserData();
         }
+    //eslint-disable-next-line react-hooks/exhaustive-deps   
     }, [isAuth]);
 
     const fetchUserData = () => {
@@ -26,9 +30,8 @@ export default function NavBar() {
         .then(response => {
             const token = localStorage.getItem('access_token')
             const decoded = jwtDecode(token);
-            console.log("RESPONSE:", response.data);
             const user = response.data.find(user => user.id === decoded.user_id)
-            console.log("USER: ", user);
+            setUserId(decoded.user_id)
             setIsStaff(user.is_staff);
         })
         .catch(error => {
@@ -52,7 +55,10 @@ export default function NavBar() {
                                 </NavDropdown>
                                 <Nav.Link><Link to="/camps" className='link'>Camps</Link></Nav.Link>
                                 { isStaff ? 
+                                <>
                                 <Nav.Link><Link to="/camps/add" className='link'>Add Camp</Link></Nav.Link>
+                                <Nav.Link><Link to="/staff/add" className='link'>Add Staff</Link></Nav.Link>
+                                </>
                                 :
                                 null
                                 }

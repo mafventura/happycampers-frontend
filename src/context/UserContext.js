@@ -10,8 +10,9 @@ export function useUser() {
 export const UserProvider = ({children}) => {
 
     const [user, setUser] = useState(null)
+    const [userId, setUserId] = useState(null)
 
-    function getCamps() {
+    function getUsers() {
         axios.get(`${process.env.REACT_APP_BACKEND_URL}/users`)
         .then((response) => {
             setUser(response.data)
@@ -23,7 +24,9 @@ export const UserProvider = ({children}) => {
     return (
         <UserContext.Provider value={{
             user,
-            getCamps
+            getUsers,
+            userId,
+            setUserId
         }}>
             {children}
         </UserContext.Provider>

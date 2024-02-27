@@ -10,6 +10,7 @@ export function useKids() {
 export const KidsProvider = ({children}) => {
 
     const [kids, setKids] = useState()
+    const [selectedKid, setSelectedKid] = useState()
 
     function getKids() {
         axios.get(`${process.env.REACT_APP_BACKEND_URL}/kids`)
@@ -30,11 +31,33 @@ export const KidsProvider = ({children}) => {
 
     }
 
+    async function deleteKid(kid_id) {
+        try {
+            await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/kids/${kid_id}`)
+            getKids()
+        } catch (error) {
+            console.log("Error deleting kid", error);
+        }
+    }
+
+    async function editKid(kid_id, updatedKid) {
+        try {
+            await axios.put(`${process.env.REACT_APP_BACKEND_URL}/kids/${kid_id}/`, 
+            updatedKid)
+        } catch (error) {
+            console.log("Error editing kid", error);
+        }
+    }
+
     return (
         <KidContext.Provider value={{
             kids,
             getKids,
-            addKid
+            addKid,
+            deleteKid,
+            editKid,
+            selectedKid,
+            setSelectedKid
         }}>
             {children}
         </KidContext.Provider>
