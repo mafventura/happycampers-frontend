@@ -6,15 +6,24 @@
     padding-left: 0;
 }
 
-.navbar {
-    background-color: #fd7e14;
+.user {
+    background-color: #fd7e14 !important;
+}
+.staff {
+    background-color: #4dabf7 !important;
 }
 
 .dropdown-menu {
-    background-color: #fd7e14;
+    background-color: #fd7e14 !important;
+}
+.dropdown-menu-staff {
+    background-color: #4dabf7 !important;
 }
 
 .drop-item:hover {
-    background-color: #4dabf7;
+    background-color: #4dabf7 !important;
+}
+.drop-item-staff:hover {
+    background-color: #fd7e14 !important;
 }
 

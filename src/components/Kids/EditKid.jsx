@@ -1,14 +1,21 @@
 import { Button, Form, InputGroup, Container } from 'react-bootstrap'
 import { useRef, useEffect } from 'react'
-import { redirect } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useKids } from '../../context/KidContext'
 import { useUser } from '../../context/UserContext'
 
 export default function EditKid() {
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (!localStorage.getItem('access_token')) {
+            navigate('/login');
+        }
+        //eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     const { kids, selectedKid, editKid } = useKids();
     const { userId } = useUser();
-
-    console.log(userId)
 
     const nameRef = useRef()
     const dobRef = useRef()
@@ -16,8 +23,6 @@ export default function EditKid() {
     const allergiesRef = useRef()
     const leavingRef = useRef()
     const contactRef = useRef()
-
-    console.log(selectedKid);
 
     async function populateFormFields() {
         try {
@@ -32,6 +37,8 @@ export default function EditKid() {
                 contactRef.current.value = kidToEdit.emergency_contact;
                 
             }
+
+            return kidToEdit
         } catch (error) {
             console.error(error);
         }
@@ -51,7 +58,7 @@ export default function EditKid() {
                 user: userId
             });
 
-            return redirect('/kids')
+            navigate('/kids')
 
         } catch (error) {
             console.error('Error editing kid:', error);
@@ -64,8 +71,9 @@ export default function EditKid() {
     }, []);
 
     return (
-        <Container>
-            <Form onSubmit={handleSubmit} className="p-4">
+        <Container className='text-center d-flex flex-column align-items-center m-2'>
+            <h1>Edit</h1>
+            <Form onSubmit={handleSubmit} className="p-4" style={{width: '500px'}}>
                     <div>
                         <InputGroup size="sm" className="mb-3">
                             <InputGroup.Text id="inputGroup-sizing-sm">Name</InputGroup.Text>
@@ -121,11 +129,15 @@ export default function EditKid() {
                                 required
                             />
                         </InputGroup>
-                        <div className="d-grid gap-2 mt-3">
+                        <div className="d-grid gap-2 mt-3 d-flex justify-content-center">
                             <Button 
                                 type="submit"
                                 className="btn btn-primary text-white">
                                 Save Edit
+                            </Button>
+                            <Button 
+                                className="btn btn-warning text-white">
+                                <Link className='link' to='/kids'>Cancel</Link>
                             </Button>
                         </div>
                     </div>

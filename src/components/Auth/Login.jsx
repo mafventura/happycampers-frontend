@@ -1,9 +1,11 @@
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Card, Container, Form, InputGroup, Button } from "react-bootstrap";
 
 export default function Login() {
+    const navigate = useNavigate()
+
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
@@ -25,21 +27,8 @@ export default function Login() {
             localStorage.setItem('access_token', data.access)
             localStorage.setItem('refresh_token', data.refresh)
             axios.defaults.headers.common['Authorization'] = `Bearer ${data.access}`
+            axios.defaults.headers.common['Content-Type'] = 'application/json'
             window.location.href = '/'
-            // const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/user/`, {
-            //     headers: {
-            //         Authorization: `Bearer ${data.access}`
-            //     }
-            // });
-
-            // const isStaff = response.data.is_staff;
-            // if (isStaff) {
-            //     // Redirect to admin page if user is staff
-            //     window.location.href = '/admin';
-            // } else {
-            //     // Redirect to home page if user is not staff
-            //     window.location.href = '/';
-            // }
         } catch (error) {
             console.error('Login failed:', error)
         }

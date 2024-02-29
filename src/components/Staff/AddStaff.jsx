@@ -1,9 +1,18 @@
 import axios from "axios";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { Card, Container, Form, InputGroup, Button } from "react-bootstrap";
 
 export default function AddStaff() {
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (!localStorage.getItem('access_token')) {
+            navigate('/login');
+        }
+        //eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
@@ -67,13 +76,13 @@ export default function AddStaff() {
                             />
                         </InputGroup>
                         <div className="d-grid gap-2 mt-3">
-                            <button 
+                            <Button 
                                 type="submit"
                                 className="btn btn-primary text-white"
                                 style={{ width: '20rem' }}
                             >
                                 Sign Up
-                            </button>
+                            </Button>
                         </div>
                     </div>
                 </Form>

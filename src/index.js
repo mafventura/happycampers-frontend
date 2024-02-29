@@ -8,18 +8,21 @@ import App from './App';
 import { CampsProvider } from './context/CampContext';
 import { UserProvider } from './context/UserContext';
 import { KidsProvider } from './context/KidContext';
+import { WeeksProvider } from './context/WeekContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+
     <BrowserRouter>
       <UserProvider>
         <CampsProvider>
           <KidsProvider>
-            <App />
+            <WeeksProvider>
+              <App />
+            </WeeksProvider>
           </KidsProvider>
         </CampsProvider>
       </UserProvider>
     </BrowserRouter>
-  </React.StrictMode>
+
 );

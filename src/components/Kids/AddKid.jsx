@@ -1,11 +1,18 @@
 import axios from 'axios';
 import { Button, Form, InputGroup, Container } from 'react-bootstrap'
-import { useRef } from 'react'
-import { redirect } from 'react-router-dom';
+import { useRef, useEffect } from 'react'
+import { useNavigate, Link } from 'react-router-dom';
 // import { useKids } from '../context/KidContext'
 
 export default function AddKid() {
+    const navigate = useNavigate()
 
+    useEffect(() => {
+        if (!localStorage.getItem('access_token')) {
+            navigate('/login');
+        }
+        //eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const nameRef = useRef()
     const dobRef = useRef()
@@ -28,7 +35,7 @@ export default function AddKid() {
             });
             if (response.status === 201) {
                 console.log('Kid added successfully');
-                return redirect("/home")
+                navigate("/kids")
 
             } else {
                 console.error('Failed to add kid:', response.statusText);
@@ -41,7 +48,8 @@ export default function AddKid() {
     
 
     return (
-        <Container>
+        <Container className='text-center d-flex flex-column align-items-center m-2'>
+            <h1>Add Kid</h1>
             <Form onSubmit={handleSubmit} className="p-4">
                     <div>
                         <InputGroup size="sm" className="mb-3">
@@ -98,11 +106,15 @@ export default function AddKid() {
                                 required
                             />
                         </InputGroup>
-                        <div className="d-grid gap-2 mt-3">
+                        <div className="d-grid gap-2 mt-3 d-flex justify-content-center">
                             <Button 
                                 type="submit"
                                 className="btn btn-primary text-white">
                                 Add
+                            </Button>
+                            <Button 
+                                className="btn btn-warning text-white">
+                                <Link className='link' to='/kids'>Cancel</Link>
                             </Button>
                         </div>
                     </div>

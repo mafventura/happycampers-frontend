@@ -2,7 +2,7 @@ $primary: #4dabf7;
 $secondary: #fd7e14;
 $success: #d0f042;
 $info: #fcea74;
-$warning:       red;
+$warning:       rgb(221, 46, 46);
 $danger:        black;
 $light: #f5f5f5;
 // $dark:          $gray-900;
@@ -17,4 +17,10 @@ $navbar-light-toggler-border-color: rgba($light, .5);
 $navbar-light-brand-color:          $light;
 $navbar-light-brand-hover-color:    $info;
 
-@import "~bootstrap/scss/bootstrap.scss"
+$font-family-sans-serif: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@import "~bootstrap/scss/bootstrap.scss";
+
+
