@@ -25,17 +25,18 @@ export default function AddCamp() {
     async function handleSubmit(e) {
         e.preventDefault();
         try {
-            const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/camps/add/`, {
-                week_number: numRef.current.value,
+            const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/weeks/add/`, {
+                week_number: parseInt(numRef.current.value),
                 start_date: startRef.current.value,
                 end_date: endRef.current.value,
+                camp: selectedCamp
             });
             if (response.status === 201) {
-                console.log('Camp added successfully');
-                navigate("/camps")
+                console.log('Week added successfully');
+                navigate(`/camps/${selectedCamp}`)
 
             } else {
-                console.error('Failed to add camp:', response.statusText);
+                console.error('Failed to add week:', response.statusText);
             }
         } catch (error) {
             console.error('Error adding camp:', error);

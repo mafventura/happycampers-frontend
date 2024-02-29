@@ -87,6 +87,7 @@ export default function NavBar() {
                                                     </Link>
                                                 </NavDropdown.Item>
                                             </NavDropdown>
+                                            
                                         </Nav>
                                     </Navbar.Collapse>
                                 </Container>
@@ -101,10 +102,8 @@ export default function NavBar() {
                         <>
                             <Navbar expand="lg" className="text-white shadow-sm user">
                                 <Container className="navbar-container">
-                                    <Navbar.Brand>
+                                    <Navbar.Brand className="ms-4">
                                         <Link to="/" className="link">
-                                            {" "}
-                                            HC{" "}
                                             <img src="https://i.imgur.com/C2bwsVM.png" alt="" className="navbar-logo" />
                                         </Link>
                                     </Navbar.Brand>
@@ -131,6 +130,7 @@ export default function NavBar() {
                                                 </NavDropdown.Item>
                                                 {/* <NavDropdown.Item className='drop-item'><Link to="/camps/registered_camps" className='link'>My Camps</Link></NavDropdown.Item> */}
                                             </NavDropdown>
+
                                         </Nav>
                                     </Navbar.Collapse>
                                 </Container>
