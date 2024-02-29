@@ -1,39 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Container } from 'react-bootstrap';
-import { useCamps } from "../context/CampContext";
-import { useWeeks } from "../context/WeekContext";
-import { useKids } from "../context/KidContext";
+// import { useCamps } from "../context/CampContext";
+// import { useWeeks } from "../context/WeekContext";
+// import { useKids } from "../context/KidContext";
 
 import Login from "./Auth/Login";
 
 export default function Home() {
     const [isAuth] = useState(localStorage.getItem('access_token') ? localStorage.getItem('access_token') : false);
-    const { getCamps, filterCamp } = useCamps();
-    const { getWeeks, weeks } = useWeeks();
-    const { getKids, kids } = useKids();
-    const [ setInfoPerKid] = useState([])
+    // const { getCamps, filterCamp } = useCamps();
+    // const { getWeeks, weeks } = useWeeks();
+    // const { getKids, kids } = useKids();
+    // const [ setInfoPerKid] = useState([])
 
-    useEffect(() => {
-        getCamps();
-        getWeeks();
-        getKids();
-        kids?.forEach(kid => {
-            getRegisteredInfo(kid.id);
-        });
-        //eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    // useEffect(() => {
+    //     getCamps();
+    //     getWeeks();
+    //     getKids();
+    //     kids?.forEach(kid => {
+    //         getRegisteredInfo(kid.id);
+    //     });
+    //     //eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, []);
 
-    function getRegisteredInfo(kid_id) {
-        const info = []
-        const weeksWithKid = weeks?.filter((week) => week.kids.includes(kid_id))
-        weeksWithKid?.forEach((el) => {
-            const camp = filterCamp(el.camp)
-            const campName = camp[0].name
-            const week = el.week_number
-            info.push({ week, campName })
-        })
-        setInfoPerKid(prevState => [...prevState, { kid_id, info }]);
-    }
+    // function getRegisteredInfo(kid_id) {
+    //     const info = []
+    //     const weeksWithKid = weeks?.filter((week) => week.kids.includes(kid_id))
+    //     weeksWithKid?.forEach((el) => {
+    //         const camp = filterCamp(el.camp)
+    //         const campName = camp[0].name
+    //         const week = el.week_number
+    //         info.push({ week, campName })
+    //     })
+    //     setInfoPerKid(prevState => [...prevState, { kid_id, info }]);
+    // }
 
     return (
         <div className="form-signin mt-5 text-center">
