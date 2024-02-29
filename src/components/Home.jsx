@@ -11,7 +11,7 @@ export default function Home() {
     const { getCamps, filterCamp } = useCamps();
     const { getWeeks, weeks } = useWeeks();
     const { getKids, kids } = useKids();
-    const [infoPerKid, setInfoPerKid] = useState([])
+    const [ setInfoPerKid] = useState([])
 
     useEffect(() => {
         getCamps();

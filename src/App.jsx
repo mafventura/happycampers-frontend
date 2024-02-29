@@ -23,8 +23,8 @@ import RegisterToACamp from './components/Kids/RegisterToACamp';
 
 import AddWeek from './components/Weeks/AddWeek';
 
-import Staff from './components/Staff/Staff';
-import AddStaff from './components/Staff/AddStaff';
+import Staff from './components/StaffUsers/Staff';
+import AddStaff from './components/StaffUsers/AddStaff';
 
 
 function App() {

@@ -1,10 +1,9 @@
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Card, Container, Form, InputGroup, Button } from "react-bootstrap";
 
 export default function Login() {
-    const navigate = useNavigate()
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
