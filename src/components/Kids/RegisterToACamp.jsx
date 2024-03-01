@@ -18,14 +18,9 @@ export default function RegisterToACamp() {
         if (!localStorage.getItem("access_token")) {
             navigate("/login");
         }
-        //eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    useEffect(() => {
         getCamps();
         getWeeks();
         getKids();
-
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -69,6 +64,7 @@ export default function RegisterToACamp() {
                 .then((response) => {
                     console.log("Kid registered successfully:", response.data);
                 })
+                .then(navigate(`/kids/${kidToRegister}`))
                 .catch((error) => {
                     console.error("Error registering kid:", error);
                 });
