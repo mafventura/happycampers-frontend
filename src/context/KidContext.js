@@ -22,6 +22,7 @@ export const KidsProvider = ({children}) => {
         })
         .then((response) => {
             setKids(response.data)
+            console.log("RESPONSE.DATA", response.data);
         })
         .catch(error => console.error("Error fetching kids", error))
     }

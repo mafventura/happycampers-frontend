@@ -58,7 +58,7 @@ export default function EditKid() {
                 user: userId
             });
 
-            navigate('/kids')
+            navigate(`/kids/${selectedKid}`)
 
         } catch (error) {
             console.error('Error editing kid:', error);
@@ -137,7 +137,7 @@ export default function EditKid() {
                             </Button>
                             <Button 
                                 className="btn btn-warning text-white">
-                                <Link className='link' to='/kids'>Cancel</Link>
+                                <Link className='link' to={`/kids/${selectedKid}`}>Cancel</Link>
                             </Button>
                         </div>
                     </div>

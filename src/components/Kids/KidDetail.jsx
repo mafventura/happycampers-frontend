@@ -2,17 +2,18 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate, Link } from "react-router-dom";
-import { Container, Card, Breadcrumb } from "react-bootstrap";
+import { Container, Card, Breadcrumb, Button } from "react-bootstrap";
 import { useKids } from "../../context/KidContext";
 import { useUser } from "../../context/UserContext";
 import { useCamps } from "../../context/CampContext";
 import { useWeeks } from "../../context/WeekContext";
+import { MdDelete, MdModeEdit } from "react-icons/md";
 
 export default function KidDetail() {
     const navigate = useNavigate();
     const { setUserId } = useUser();
     const [isStaff, setIsStaff] = useState(false);
-    const { selectedKid, kids, getAllKids } = useKids();
+    const { selectedKid, kids, getAllKids, deleteKid, setSelectedKid } = useKids();
     const { getCamps, filterCamp } = useCamps();
     const { getWeeks, weeks } = useWeeks();
     const [infoPerKid, setInfoPerKid] = useState([]);
@@ -30,9 +31,15 @@ export default function KidDetail() {
         getAllKids();
         getWeeks();
         getCamps();
-        getRegisteredInfo(selectedKid);
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    useEffect(() => {
+        if (selectedKid) {
+            getRegisteredInfo(selectedKid);
+        }
+        //eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedKid]);
 
     const fetchUserData = () => {
         axios
@@ -100,47 +107,49 @@ export default function KidDetail() {
                             <Link to="/kids/list_all">All Kids</Link>
                         </Breadcrumb.Item>
                     </Breadcrumb>
-                    <Container className="m-3 d-flex justify-content-center">
-                        <Card className="d-flex flex-row p-3 border-secondary" style={{ width: "550px" }}>
-                            <Card.Body>
-                                <h1>{kid.name}</h1>
-                                <Card.Text>{kid.dob}</Card.Text>
-                            </Card.Body>
-                            <Card.Body className="ms-3">
-                                <Card.Text>
-                                    <strong>Allergies:</strong> {kid.allergies}
-                                </Card.Text>
-                                <Card.Text>
-                                    <strong>Emergency Contacts:</strong> {kid.emergency_contact}
-                                </Card.Text>
-                                <Card.Text>
-                                    <strong>Leaving Authorizations:</strong> {kid.leaving_permissions}
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
-                    </Container>
-                    <hr />
-                    <Container>
-                        <Container>
-                            <h3>Current Camp:</h3>
-                            {infoPerKid?.map((el) => (
-                                <>
-                                    <p>
-                                        Week {el.week} of {el.campName}
-                                    </p>
-                                </>
-                            ))}
+                    <Container className="d-flex flex-column justify-content-center">
+                        <Container className="m-3 d-flex justify-content-center">
+                            <Card className="d-flex flex-row p-3 border-secondary" style={{ width: "500px" }}>
+                                <Card.Body>
+                                    <h1>{kid.name}</h1>
+                                    <Card.Text>{kid.dob}</Card.Text>
+                                </Card.Body>
+                                <Card.Body className="ms-3">
+                                    <Card.Text>
+                                        <strong>Allergies:</strong> {kid.allergies}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        <strong>Emergency Contacts:</strong> {kid.emergency_contact}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        <strong>Leaving Authorizations:</strong> {kid.leaving_permissions}
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
                         </Container>
                         <hr />
                         <Container>
-                            <h3>Past Camps:</h3>
-                            {pastInfo?.map((el) => (
-                                <>
-                                    <p>
-                                        Week {el.week} of {el.campName}
-                                    </p>
-                                </>
-                            ))}
+                            <Container>
+                                <h3>Current Camp:</h3>
+                                {infoPerKid?.map((el) => (
+                                    <>
+                                        <p>
+                                            Week {el.week} of {el.campName}
+                                        </p>
+                                    </>
+                                ))}
+                            </Container>
+                            <hr />
+                            <Container>
+                                <h3>Past Camps:</h3>
+                                {pastInfo?.map((el) => (
+                                    <>
+                                        <p>
+                                            Week {el.week} of {el.campName}
+                                        </p>
+                                    </>
+                                ))}
+                            </Container>
                         </Container>
                     </Container>
                 </>
@@ -154,36 +163,51 @@ export default function KidDetail() {
                             <Link to="/kids">My Kids</Link>
                         </Breadcrumb.Item>
                     </Breadcrumb>
-                    <Container className="m-3 d-flex justify-content-center">
-                        <Card className="d-flex flex-row p-3 border-primary" style={{ width: "550px" }}>
-                            <Card.Body>
-                                <h1>{kid.name}</h1>
-                                <Card.Text>{kid.dob}</Card.Text>
-                            </Card.Body>
-                            <Card.Body className="ms-3">
-                                <Card.Text>
-                                    <strong>Allergies:</strong> {kid.allergies}
-                                </Card.Text>
-                                <Card.Text>
-                                    <strong>Emergency Contacts:</strong> {kid.emergency_contact}
-                                </Card.Text>
-                                <Card.Text>
-                                    <strong>Leaving Authorizations:</strong> {kid.leaving_permissions}
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
-                    </Container>
-                    <hr style={{ borderColor: "blue" }} />
-                    <Container>
+                    <Container className="d-flex flex-column justify-content-center">
+                        <Container className="m-3 d-flex justify-content-center">
+                            <Card className="d-flex flex-row p-3 border-primary" style={{ width: "550px" }}>
+                                <Card.Body>
+                                    <h1>{kid.name}</h1>
+                                    <Card.Text>{kid.dob}</Card.Text>
+                                    <Button
+                                        onClick={() => {
+                                            setSelectedKid(kid.id);
+                                        }}
+                                        className="me-2"
+                                    >
+                                        <Link to={`/kids/${kid.id}/edit`}>
+                                            <MdModeEdit style={{ color: "white" }} />
+                                        </Link>
+                                    </Button>
+                                    <Button onClick={() => deleteKid(kid.id)} className="me-2 btn-warning">
+                                        <MdDelete style={{ color: "white" }} />
+                                    </Button>
+                                </Card.Body>
+                                <Card.Body className="ms-3">
+                                    <Card.Text>
+                                        <strong>Allergies:</strong> {kid.allergies}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        <strong>Emergency Contacts:</strong> {kid.emergency_contact}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        <strong>Leaving Authorizations:</strong> {kid.leaving_permissions}
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                        </Container>
+                        <hr style={{ borderColor: "blue" }} />
                         <Container>
-                            <h3>Upcoming Registered Camps:</h3>
-                            {infoPerKid?.map((el) => (
-                                <>
-                                    <p>
-                                        Week {el.week} of {el.campName}
-                                    </p>
-                                </>
-                            ))}
+                            <Container>
+                                <h3>Upcoming Registered Camps:</h3>
+                                {infoPerKid?.map((el) => (
+                                    <>
+                                        <p>
+                                            Week {el.week} of {el.campName}
+                                        </p>
+                                    </>
+                                ))}
+                            </Container>
                         </Container>
                     </Container>
                 </>

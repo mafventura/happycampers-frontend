@@ -3,24 +3,27 @@ import { useNavigate, Link } from "react-router-dom";
 import { useCamps } from "../../context/CampContext";
 import { useWeeks } from "../../context/WeekContext";
 import { Container, Card, Breadcrumb, Button } from "react-bootstrap";
+import { useKids } from "../../context/KidContext";
 
 export default function CampDetail() {
     const navigate = useNavigate()
     const { selectedCamp, camps, getCamps } = useCamps();
     const { getWeeks, filterWeeks } = useWeeks();
+    const { filterKidsById, getAllKids, kids, setSelectedKid } = useKids();
 
     useEffect(() => {
         if (!localStorage.getItem('access_token')) {
             navigate('/login');
         }
+        getCamps()
+        getWeeks()
+        getAllKids()
+        filterWeeks(selectedCamp)
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        getCamps()
-        getWeeks()
-        filterWeeks(selectedCamp)
-
+        console.log(kids);
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -31,6 +34,17 @@ export default function CampDetail() {
 
     const camp = getSelectedCamp(selectedCamp)
     const campWeeks = filterWeeks(selectedCamp)
+    const kidsEnrolled = []
+
+    campWeeks?.forEach((el) => {
+        const ids = el.kids
+        ids?.forEach((id) => {
+            console.log(kids);
+            const kid = filterKidsById(id)
+            kidsEnrolled.push(kid)
+            console.log(kidsEnrolled);
+        })
+    })
 
 
     return (
@@ -69,6 +83,28 @@ export default function CampDetail() {
                         <>
                         <p className="mt-4">Week {week.week_number} from {week.start_date} to {week.end_date}</p>         
                         </>
+                    ))}
+                </Container>
+            </Container>
+            <hr />
+            <Container>
+                <Container className="d-flex justify-content-between">
+                    <h3>Registered Kids:</h3>
+                </Container>
+                <Container className="mt-3">
+                    {kidsEnrolled?.map((kid) => (
+                        kid.map((el) => (
+                            <>
+                            <Button
+                                    className="hide_button"
+                                    onClick={() => {
+                                        setSelectedKid(el.id);
+                                    }}
+                                >
+                                    <Link to={`/kids/${el.id}/`}>{el.name}</Link>
+                                </Button>        
+                            </>
+                        ))
                     ))}
                 </Container>
             </Container>

@@ -87,15 +87,14 @@ export default function NavBar() {
                                                     </Link>
                                                 </NavDropdown.Item>
                                             </NavDropdown>
-                                            
                                         </Nav>
+                                            <Nav.Link>
+                                                <Link to="/logout" className="link ">
+                                                    Log Out
+                                                </Link>
+                                            </Nav.Link>
                                     </Navbar.Collapse>
                                 </Container>
-                                <Nav.Link className="me-5">
-                                    <Link to="/logout" className="link">
-                                        Log Out
-                                    </Link>
-                                </Nav.Link>
                             </Navbar>
                         </>
                     ) : (
@@ -109,7 +108,7 @@ export default function NavBar() {
                                     </Navbar.Brand>
                                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                                     <Navbar.Collapse id="basic-navbar-nav">
-                                        <Nav className="me-auto">
+                                        <Nav className="me-auto ms-4">
                                             <NavDropdown title="Kids">
                                                 <NavDropdown.Item className="drop-item">
                                                     <Link to="/kids" className="link">
@@ -130,15 +129,14 @@ export default function NavBar() {
                                                 </NavDropdown.Item>
                                                 {/* <NavDropdown.Item className='drop-item'><Link to="/camps/registered_camps" className='link'>My Camps</Link></NavDropdown.Item> */}
                                             </NavDropdown>
-
                                         </Nav>
+                                            <Nav.Link className="ms-4">
+                                                <Link to="/logout" className="link">
+                                                    Log Out
+                                                </Link>
+                                            </Nav.Link>
                                     </Navbar.Collapse>
                                 </Container>
-                                <Nav.Link className="me-5">
-                                    <Link to="/logout" className="link">
-                                        Log Out
-                                    </Link>
-                                </Nav.Link>
                             </Navbar>
                         </>
                     )}
