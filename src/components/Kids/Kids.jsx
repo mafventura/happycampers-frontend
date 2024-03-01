@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useKids } from "../../context/KidContext";
-import { Container, Card, Button, Breadcrumb } from "react-bootstrap";
+import { Container, Card, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { MdDelete, MdModeEdit } from "react-icons/md";
 import { CgDetailsMore } from "react-icons/cg";
@@ -25,12 +25,7 @@ export default function Kids() {
 
     return (
         <>
-            <Breadcrumb className="mt-2 ms-3">
-                <Breadcrumb.Item>
-                    <Link to="/">Home</Link>
-                </Breadcrumb.Item>
-            </Breadcrumb>
-            <Container className="text-center">
+            <Container className="text-center mt-5">
                 <Container className="d-flex justify-content-between">
                     <Button className="hide_button"></Button>
                     <h1>My Kids</h1>

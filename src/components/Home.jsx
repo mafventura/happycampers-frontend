@@ -6,11 +6,14 @@ import { useUser } from "../context/UserContext";
 
 
 import Login from "./Auth/Login";
+import UpcomingCamps from "./Camps/UpcomingCamps"
+import Kids from "./Kids/Kids"
 
 export default function Home() {
     const [isAuth] = useState(localStorage.getItem('access_token') ? localStorage.getItem('access_token') : false);
     const { setUserId } = useUser();
     const [username, setUsername] = useState('')
+    const [isStaff, setIsStaff] = useState(false);
 
     useEffect(() => {
         if (localStorage.getItem("access_token") !== null) {
@@ -32,6 +35,7 @@ export default function Home() {
                 const user = response.data.find((user) => user.id === decoded.user_id);
                 setUserId(decoded.user_id);
                 setUsername(user.username);
+                setIsStaff(user.is_staff);
             })
             .catch((error) => {
                 console.error("Error fetching user data:", error);
@@ -45,9 +49,16 @@ export default function Home() {
                     <Container>
                         <h1>Welcome, {username}</h1>
                     </Container>
-                    <Container>
-                        
-                    </Container>
+                    { isStaff ?
+                        <Container>
+                            <UpcomingCamps />
+                        </Container>
+                        :
+                        <Container className='mt-5'>
+                            <Kids />
+                            <UpcomingCamps />
+                        </Container>
+                    }
                 </>
                 :
                 <Login />

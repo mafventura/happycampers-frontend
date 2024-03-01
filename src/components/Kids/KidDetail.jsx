@@ -130,7 +130,7 @@ export default function KidDetail() {
                         <hr />
                         <Container>
                             <Container>
-                                <h3>Current Camp:</h3>
+                                <h3>Current/Upcoming Camps:</h3>
                                 {infoPerKid?.map((el) => (
                                     <>
                                         <p>
