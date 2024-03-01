@@ -167,31 +167,31 @@ export default function KidDetail() {
                         <Container className="m-3 d-flex justify-content-center">
                             <Card className="d-flex flex-row p-3 border-primary" style={{ width: "550px" }}>
                                 <Card.Body>
-                                    <h1>{kid.name}</h1>
-                                    <Card.Text>{kid.dob}</Card.Text>
+                                    <h1>{kid?.name}</h1>
+                                    <Card.Text>{kid?.dob}</Card.Text>
                                     <Button
                                         onClick={() => {
-                                            setSelectedKid(kid.id);
+                                            setSelectedKid(kid?.id);
                                         }}
                                         className="me-2"
                                     >
-                                        <Link to={`/kids/${kid.id}/edit`}>
+                                        <Link to={`/kids/${kid?.id}/edit`}>
                                             <MdModeEdit style={{ color: "white" }} />
                                         </Link>
                                     </Button>
-                                    <Button onClick={() => deleteKid(kid.id)} className="me-2 btn-warning">
+                                    <Button onClick={() => deleteKid(kid?.id)} className="me-2 btn-warning">
                                         <MdDelete style={{ color: "white" }} />
                                     </Button>
                                 </Card.Body>
                                 <Card.Body className="ms-3">
                                     <Card.Text>
-                                        <strong>Allergies:</strong> {kid.allergies}
+                                        <strong>Allergies:</strong> {kid?.allergies}
                                     </Card.Text>
                                     <Card.Text>
-                                        <strong>Emergency Contacts:</strong> {kid.emergency_contact}
+                                        <strong>Emergency Contacts:</strong> {kid?.emergency_contact}
                                     </Card.Text>
                                     <Card.Text>
-                                        <strong>Leaving Authorizations:</strong> {kid.leaving_permissions}
+                                        <strong>Leaving Authorizations:</strong> {kid?.leaving_permissions}
                                     </Card.Text>
                                 </Card.Body>
                             </Card>

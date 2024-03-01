@@ -64,7 +64,7 @@ export default function RegisterToACamp() {
                 .then((response) => {
                     console.log("Kid registered successfully:", response.data);
                 })
-                .then(navigate(`/kids/${kidToRegister}`))
+                .then(navigate(`/kids`))
                 .catch((error) => {
                     console.error("Error registering kid:", error);
                 });
@@ -72,6 +72,7 @@ export default function RegisterToACamp() {
     }
 
     return (
+        <Container className=" d-flex align-items-center m-5">
         <Container className="text-center d-flex flex-column align-items-center m-2">
             <h1>Register to {thisCamp[0].name}</h1>
             <Form onSubmit={handleSubmit} className="p-4" style={{ width: "500px" }}>
@@ -111,6 +112,7 @@ export default function RegisterToACamp() {
                     </Button>
                 </div>
             </Form>
+        </Container>
         </Container>
     );
 }
