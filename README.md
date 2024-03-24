@@ -59,7 +59,7 @@ This was a solo project and we had a week to code it.
 
 
 ## Planning:
-I created a excalidraw with the color cheme to be used and with the initial ideas of how the app should work and feel. Most important was the ERD to organize the project models and how they would connect to eachother.
+I created an excalidraw with the colour scheme to be used and with the initial ideas of how the app should work and feel. Most important was the ERD to organize the project models and how they would connect to each other.
 
 ![planning-screenshot](https://i.imgur.com/24su2tN.png)
 ![planning-screenshot](https://i.imgur.com/cMVOQ9k.png)
